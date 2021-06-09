@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Novelki.pl downloader by Deru</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div class="container">
+        <header id="main-header">
+            <h1>Novelki.pl downloader by Deru</h1>
+        </header>
+
+        <div>
+            <h2>Poradnik instalacji i użytkowania</h2>
+            <hr />
+
+            <section>
+                <h3>I. Skrypt do pobierania danych książki z przeglądarki</h3>
+                
+                <ol>
+                    <li>
+                        Najpierw należy zainstalować wtyczkę Tampermonkey - 
+                        umożliwia ona załadowanie customowego skryptu na stronę novelek.
+                    
+                        <ul>
+                            <li>Opera - <a href="https://addons.opera.com/pl/extensions/details/tampermonkey-beta/">(link do wtyczki)</a></li>
+                            <li>Firefox - <a href="https://addons.mozilla.org/pl/firefox/addon/tampermonkey/">(link do wtyczki)</a></li>
+                            <li>Chrome - <a href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=pl">(link do wtyczki)</a></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        Następnie należy kliknąć przycisk poniżej: <br />
+                        <a href="files/novelki-dl.user.js" class="btn btn-sm btn-success">Zainstaluj skrypt do pobierania nowelek</a>
+                    </li>
+
+                    <li>
+                        Powinien wyskoczyć kreator instalacji skryptu Tampermonkey.
+                        Wystarczy wcisnąć przycisk "Zainstaluj" i skrypt do pobierania nowelek będzie już gotowy do pracy.
+                    </li>
+
+                    <li>
+                        Aby pobrać jakąś książkę, należy przejść na jej podstronę na stronie novelki.pl.
+                        Nad tytułem książki powinien znajdować się zielony przycisk "Przeanalizuj nowelkę".
+                    </li>
+
+                    <li>
+                        Po kliknięciu "Przeanalizuj nowelkę", skrypt automatycznie otworzy sobie każdy rozdział nowelki i zapisze jego zawartość.
+                        Po zapisaniu ostatniego dotępnego rozdziału, skrypt powróci do podstrony nowelki.
+                    </li>
+
+                    <li>
+                        Po zakończonym procesie analizowania, obok zielonego przycisku "Przeanalizuj nowelkę" pojawi się drugi, niebieski przycisk z napisem "Pobierz tę nowelkę".
+                        Kliknięcie tego przycisku zapisze treść książki w wewnętrznym formacie ".nov.json".
+                    </li>
+
+                    <li>
+                        Aby przekonwertować plik ".nov.json" na plik epub, należy skorzystać z narzędzia opisanego poniżej, w punkcie II.
+                    </li>
+                </ol>
+            </section>
+
+            <section>
+                <h3>II. Skrypt do konwersji pliku .nov.json na plik .epub</h3>
+                
+                <ol>
+                    <li>
+                        Do działania wymagane jest zainstalowanie środowiska Python 3. 
+                        Poradnik zakłada, że Python jest juz zainstalowany.
+                    </li>
+                    <li>
+                        Najpierw należy pobrać i rozpakować archiwum ze skryptem: <br />
+                        <a href="files/novelki-converter.zip" class="btn btn-sm btn-success">Pobierz skrypt do konwersji nowelek</a>
+                    </li>
+                    <li>Następnie należy otworzyć konsolę systemową (cmd, Powershell, dowolny linuxowy terminal) i przejść do folderu, gdzie został rozpakowany skrypt<br /><strong>cd C:/Users/Przykładowy użytkownik/Pobrane/novelki-converter</strong></li>
+                    <li>Jeżeli to twoje pierwsze uruchomienie skryptu, musisz zainstalować wymagane biblioteki Pythona przez użycie polecenia:<br /><strong>python -m pip install -r requirements.txt</strong></li>
+                    <li>
+                        Aby przekonwertować plik .nov.json na plik .epub, użyj następującej komendy:<br />
+                        <strong>python main.py "C:/Users/Przykładowy użytkownik/Pobrane/nazwa-ksiazki.nov.json"</strong><br />
+                        (oczywiście zamiast tej przykładowej ścieżki wstaw prawidłową)
+                    </li>
+                    <li>
+                        Domyślnie skrypt oddziela poszczególne akapity ebooka blokowo (jak na stronie novelki.pl).<br />
+                        Aby oddzielać akapity wcięciami (jak w polskich książkach), użyj argumentu <strong>--paragraph indent</strong><br />
+                        <strong>python main.py --paragraph indent "C:/nazwa-ksiazki.nov.json"</strong>
+                    </li>
+                    <li>
+                        Domyślny rozmiar wcięcia to <strong>1.5em</strong>, a rozmiar odstępu akapitów blokowych to <strong>0.56em</strong>.<br />
+                        Możesz zmienić tę wartość używając argumentu <strong>--spacing</strong>. <br />
+                        <strong>python main.py --paragraph indent --spacing 5cm "C:/nazwa-ksiazki.nov.json"</strong><br />
+                        (możesz używać dowolnych jednostek obsługiwanych przez CSS)
+                    </li>
+                    <li>
+                        Pliki .epub które wygeneruje skrypt trafiają do folderu "output" znajdującego się w folderze ze skryptem.
+                    </li>
+                </ol>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
